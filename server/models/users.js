@@ -7,7 +7,7 @@
 
 //requires modules for user model
 let mongoose = require("mongoose");
-let Schemna = mongoose.Schema;
+let Schema = mongoose.Schema;
 
 let passportLocalMongoose = require("passport-local-mongoose");
 
