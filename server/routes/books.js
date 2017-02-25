@@ -37,7 +37,7 @@ router.get('/', requireAuth,(req, res, next) => {
       res.render('books/index', {
         title: 'Books',
         books: books,
-        displayName: req.user ? req.user.displayName : ''
+        displayName: req.user.displayName
       });
     }
   });
@@ -102,7 +102,7 @@ router.get('/:id',requireAuth, (req, res, next) => {
           res.render('books/details', {
               title: 'Book Details',
               books: books,
-              displayName: req.user ? req.user.displayName : ''
+              displayName: req.user.displayName
           });
         }
       });

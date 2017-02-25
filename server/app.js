@@ -1,4 +1,10 @@
-// modules required for the project
+//File Name:
+//Author: Amandeep Aujla
+//Student ID: 300823928
+//Website:https://comp308-w17-midterm-300823928.herokuapp.com/
+//aaujla55
+
+ // modules required for the project
 let express = require('express');
 let path = require('path'); // part of node.js core
 let favicon = require('serve-favicon');
@@ -6,12 +12,12 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-//modules for authentication
-let session = require("express-session");
-let passport = require("passport");
-let passportlocal = require("passport-local");
-let localStrategy = passportlocal.Strategy;
-let flash = require("connect-flash");//display error login messgaes
+// modules for authentication
+let session = require('express-session');
+let passport = require('passport');
+let passportlocal = require('passport-local');
+let LocalStrategy = passportlocal.Strategy;
+let flash = require('connect-flash'); // displays errors / login messages
 
 // import "mongoose" - required for DB Access
 let mongoose = require('mongoose');
@@ -44,25 +50,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
-//initialize passport and flash
+// setup session
+app.use(session({
+  secret: "SomeSecret",
+  saveUninitialized: true,
+  resave: true
+}));
+
+// initialize passport and flash
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-
-//setup session
-app.use(session({
-  secret:"SomeSecret",
-  saveUninitialized: true,
-  resave:true
-}));
-
 
 // route redirects
 app.use('/', index);
 app.use('/books', books);
 
+// Passport User Configuration
+let UserModel = require('./models/users');
+let User = UserModel.User; // alias for the User Model - User object
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Handle 404 Errors
   app.use(function(req, res) {
