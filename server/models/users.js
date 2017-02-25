@@ -1,4 +1,4 @@
-//File Name:
+//File Name: user.js
 //Author: Amandeep Aujla
 //Student ID: 300823928
 //Website:https://comp308-w17-midterm-300823928.herokuapp.com/aaujla55
